@@ -30,7 +30,7 @@ class Net(torch.nn.Module):
                                 input_size=embedding_size,
                                 hidden_size=hidden_size,
                                 batch_first=True)
-        # ?
+        # ?只对最后一维进行
         self.fc = torch.nn.Linear(hidden_size, num_class)  # 8 --> 4
 
     # inputs or input
@@ -40,6 +40,7 @@ class Net(torch.nn.Module):
         x, _ = self.rnn(x, hidden)  # B,S,H
         # print(x.shape)
         x = self.fc(x)  # B,S,H --.> B,S,C
+        print(x.shape)
         return x.view(-1, num_class)
 
 
